@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum LevelSelection
 {
@@ -11,8 +12,6 @@ public enum LevelSelection
 };
 public class GameManager : MonoBehaviour
 {
-
-
     public LevelSelection currentLevel;
     // Start is called before the first frame update
     void Start()
@@ -24,5 +23,14 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void LoadScene(int sceneNumber)
+    {
+        SceneManager.LoadScene(sceneNumber);
+    }
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }

@@ -10,11 +10,12 @@ public class PlayerShipController : MonoBehaviour
     [SerializeField] Vector3 moveDir;
     [SerializeField] Vector3 moveToLoc;
     [SerializeField] float speed;
+    public float shipHealth;
 
     // ships thurster stats
     [Header("Thruster")]
-    [SerializeField]float thrusterHealth;
-    [SerializeField] float thrusterSpeed;
+    public float thrusterHealth;
+    public float thrusterSpeed;
 
     // ship weaopons stats
     [Header("Weapons")]
