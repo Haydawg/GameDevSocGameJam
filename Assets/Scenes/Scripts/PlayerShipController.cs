@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerShipController : MonoBehaviour
 {
-    [SerializeField] LevelSelection currentLevel;
+    public LevelSelection currentLevel;
+    public PlanetScript currentPlanet;
     Camera camera;
     [Header("ship")]
     [SerializeField] Vector3 moveDir;
@@ -29,16 +30,18 @@ public class PlayerShipController : MonoBehaviour
 
     // ship scanner stats
     [Header("Scanner")]
-    [SerializeField] GameObject scannerBuoyPrefab;
+    [SerializeField] ScannerBuoy scannerBuoyPrefab;
     [SerializeField] float scannerHealth;
     [SerializeField] int scannerAmount;
     [SerializeField] float scannerRadius;
     ScannerBuoy[] scannerBuoys;
+    int remainingScannerBuoys = 3;
     int BouyIndex;
 
     // Start is called before the first frame update
     void Start()
     {
+        moveToLoc = transform.position;
         camera = Camera.main;
         lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.startColor = Color.red;
@@ -65,6 +68,10 @@ public class PlayerShipController : MonoBehaviour
                 break;
 
             case LevelSelection.Astroid:
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    DropScannerBuoy();
+                }
                 break;
             case LevelSelection.Scanning:
 
@@ -126,9 +133,17 @@ public class PlayerShipController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
+
             if (hit.collider.tag == "Ground")
             {
-                scannerBuoys[BouyIndex].Drop(hit.point);
+
+                if (remainingScannerBuoys > 0)
+                {
+                    ScannerBuoy scannerBouy = Instantiate(scannerBuoyPrefab,this.transform.position, Quaternion.identity);
+                    scannerBouy.scannerRadius = scannerRadius;
+                    scannerBouy.Drop(hit.point);
+                    remainingScannerBuoys --;
+                }
             }
         }
     }
