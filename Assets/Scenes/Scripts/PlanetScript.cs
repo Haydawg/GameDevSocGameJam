@@ -92,6 +92,7 @@ public class PlanetScript : MonoBehaviour
             gameObject.GetComponent<MeshFilter>().mesh = planetMeshs[1];
             if(planetDestroyed == false)
             {
+                gameObject.GetComponent<MeshCollider>().enabled = false;
                 gameObject.transform.localScale = gameObject.transform.localScale + new Vector3(4, 4, 4);
                 planetDestroyed = true;
             }

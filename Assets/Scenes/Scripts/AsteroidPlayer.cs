@@ -21,7 +21,7 @@ public class AsteroidPlayer : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.Instance;
-        engineDamage = GameManager.Instance.thrusterHealth;
+        //engineDamage = GameManager.Instance.thrusterHealth;
     }
 
     // Update is called once per frame
@@ -66,7 +66,7 @@ public class AsteroidPlayer : MonoBehaviour
 
             gameEnded = true;
             endText.text = "You got no fuel and suffered sever damage";
-            GameManager.Instance.resourceGathered = 0;
+            GameManager.Instance.fuelAmount += 0;
             endText.enabled = true;
             endButton.gameObject.SetActive(true);
         }
@@ -77,15 +77,15 @@ public class AsteroidPlayer : MonoBehaviour
             switch(playerHealth)
             {
                 case 3: endText.text = "Well done you got 50 fuel with out taking any damage!";
-                    GameManager.Instance.resourceGathered = 50;
+                    GameManager.Instance.fuelAmount += 50;
                     break;
                 case 2:
                     endText.text = "You got 40 fuel and only took minor damage";
-                    GameManager.Instance.resourceGathered = 40;
+                    GameManager.Instance.fuelAmount += 40;
                     break;
                 case 1:
                     endText.text = "You got 30 fuel but suffered major damage";
-                    GameManager.Instance.resourceGathered = 30;
+                    GameManager.Instance.fuelAmount += 30;
                     break;
             }
             endText.enabled = true;

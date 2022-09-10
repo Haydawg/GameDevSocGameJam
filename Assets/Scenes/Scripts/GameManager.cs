@@ -24,20 +24,15 @@ public class GameManager : MonoBehaviour
         }
     }
     public LevelSelection currentLevel;
-    public float resourceGathered;
+    public float fuelAmount = 20;
     [Header("Ship Stats")]
     public float shipHealth;
 
-    public float thrusterHealth;
-    public float thrusterSpeed;
+    public float thrusterHealth = 1;
 
     public float weaponHealth;
-    public float weaponDamage;
-    public float weaponFireRate;
 
     public float scannerHealth;
-    public int scannerAmount;
-    public float scannerRadius;
 
     public bool newGame;
 

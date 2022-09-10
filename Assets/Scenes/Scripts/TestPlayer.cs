@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class TestPlayer : MonoBehaviour
 {
-    GameManager gameManager;
 
     public GameObject currentLocation;
     public float fuel;
@@ -26,8 +25,7 @@ public class TestPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
-        fuelLeftText.text = "Fuel left: " + fuel;
+        fuelLeftText.text = "Fuel left: " + GameManager.Instance.fuelAmount;
     }
 
     // Update is called once per frame
@@ -56,7 +54,7 @@ public class TestPlayer : MonoBehaviour
 
     public void MoveToNextPlanet(GameObject nextPlanet, float travelCost)
     {
-        if (travelCost <= fuel)
+        if (travelCost <= GameManager.Instance.fuelAmount)
         {
             nextPos = new Vector3(nextPlanet.transform.position.x, 400, nextPlanet.transform.position.z);
             gameObject.transform.LookAt(nextPos, Vector3.up);
@@ -64,8 +62,8 @@ public class TestPlayer : MonoBehaviour
             currentLocation.GetComponent<PlanetScript>().Travelable = false;
             currentLocation = nextPlanet;
             PlanetGeneration.Instance.visitedPlanets.Add(currentLocation);
-            fuel = fuel - travelCost;
-            fuelLeftText.text = "Fuel left: " + fuel;
+            GameManager.Instance.fuelAmount = GameManager.Instance.fuelAmount - travelCost;
+            fuelLeftText.text = "Fuel left: " + GameManager.Instance.fuelAmount;
             foreach (GameObject engine in engineFX)
             {
                 engine.GetComponent<ParticleSystem>().Play(true);
@@ -79,7 +77,7 @@ public class TestPlayer : MonoBehaviour
 
     public void LosdNextLevel()
     {
-        gameManager.LoadScene((int)currentLocation.GetComponent<PlanetScript>().minigame);
+        GameManager.Instance.LoadScene((int)currentLocation.GetComponent<PlanetScript>().minigame);
     }
 
     public void QuitGame()
