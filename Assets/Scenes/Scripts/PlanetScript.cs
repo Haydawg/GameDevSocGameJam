@@ -106,8 +106,6 @@ public class PlanetScript : MonoBehaviour
                 UICanavas.SetActive(true);
                 GameObject travelCostText = UICanavas.transform.Find("TravelCost").gameObject;
                 travelCostText.GetComponent<Text>().text = ("Travel Cost: " + travelCost + " fuel");
-
-                Debug.Log(currentPlanet.GetComponent<PlanetScript>().conectionCosts[costIndex]);
             }
         }
     }

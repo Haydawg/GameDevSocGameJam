@@ -135,6 +135,7 @@ public class PlanetGeneration : MonoBehaviour, ISaveable
     public void LoadScene()
     {
         saveLoadSystem.Save();
-        GameManager.Instance.LoadScene((int)player.GetComponent<TestPlayer>().currentLocation.GetComponent<PlanetScript>().minigame +1);
+        Debug.Log((int)player.GetComponent<TestPlayer>().currentLocation.GetComponent<PlanetScript>().minigame + 1);
+        GameManager.Instance.LoadScene((int)player.GetComponent<TestPlayer>().currentLocation.GetComponent<PlanetScript>().minigame + 1);
     }
 }
