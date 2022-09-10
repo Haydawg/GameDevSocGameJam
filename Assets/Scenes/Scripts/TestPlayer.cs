@@ -17,6 +17,7 @@ public class TestPlayer : MonoBehaviour
     public List<GameObject> engineFX = new List<GameObject>();
     public Text launchGameText;
     public Text victoryText;
+    public GameObject exitButton;
 
     public AudioClip engineSound;
 
@@ -46,8 +47,11 @@ public class TestPlayer : MonoBehaviour
             if (currentLocation.GetComponent<PlanetScript>().finalPLanet == true)
             {
                 victoryText.enabled = true;
+                exitButton.SetActive(true);
             }
         }
+
+        launchGameText.text = currentLocation.GetComponent<PlanetScript>().minigame.ToString();
     }
 
     public void MoveToNextPlanet(GameObject nextPlanet, float travelCost)
@@ -65,7 +69,6 @@ public class TestPlayer : MonoBehaviour
             {
                 engine.GetComponent<ParticleSystem>().Play(true);
             }
-            launchGameText.text = currentLocation.GetComponent<PlanetScript>().minigame.ToString();
             gameObject.GetComponent<AudioSource>().clip = engineSound;
             gameObject.GetComponent<AudioSource>().Play();
 
@@ -76,6 +79,11 @@ public class TestPlayer : MonoBehaviour
     public void LosdNextLevel()
     {
         gameManager.LoadScene((int)currentLocation.GetComponent<PlanetScript>().minigame);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     IEnumerator LerpPosition(Vector3 targetPosition, float duration)

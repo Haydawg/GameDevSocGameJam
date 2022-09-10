@@ -42,6 +42,7 @@ public class PlanetGeneration : MonoBehaviour, ISaveable
         }
         player.GetComponent<TestPlayer>().currentLocation = planetList[saveData.playerIndex];
         player.transform.position = new Vector3(planetList[saveData.playerIndex].transform.position.x, 400, planetList[saveData.playerIndex].transform.position.z);
+        planetList[saveData.playerIndex].GetComponent<PlanetScript>().Travelable = false;
         enemyFleet.MoveTo(new Vector3(saveData.enemyX, saveData.enemyY, saveData.enemyZ));
     }
 

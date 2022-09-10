@@ -55,11 +55,11 @@ public class PlanetScript : MonoBehaviour
             }
             else if(distanceCost < 1300)
             {
-                conectionCosts.Add(2f);
+                conectionCosts.Add(3f);
             }
             else
             {
-                conectionCosts.Add(3f);
+                conectionCosts.Add(7f);
             }
 
             GameObject newChild = new GameObject();

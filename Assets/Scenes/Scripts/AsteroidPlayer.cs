@@ -15,7 +15,7 @@ public class AsteroidPlayer : MonoBehaviour
     public Text timerText;
     public Text endText;
     public Button endButton;
-    bool gameEnded = false;
+    public bool gameEnded = false;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +34,7 @@ public class AsteroidPlayer : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.A)) //left -
             {
-                if (gameObject.transform.position.x > -50)
+                if (gameObject.transform.position.x > -40)
                 {
                     gameObject.transform.position = gameObject.transform.position + (new Vector3(-speed, 0, 0) * Time.deltaTime);
                     gameObject.transform.Find("ThrustRF").gameObject.GetComponent<ParticleSystem>().Play(true);
@@ -43,7 +43,7 @@ public class AsteroidPlayer : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.D)) //right +
             {
-                if (gameObject.transform.position.x < 50)
+                if (gameObject.transform.position.x < 40)
                 {
                     gameObject.transform.position = gameObject.transform.position + (new Vector3(speed, 0, 0) * Time.deltaTime);
                     gameObject.transform.Find("ThrustLF").gameObject.GetComponent<ParticleSystem>().Play(true);
@@ -58,7 +58,7 @@ public class AsteroidPlayer : MonoBehaviour
         gameObject.transform.Find("ThrustLB").gameObject.GetComponent<ParticleSystem>().Stop(true);
 
 
-        if (playerHealth == 0)
+        if (playerHealth <= 0)
         {
             gameObject.transform.Find("AsteroidShipExp").gameObject.GetComponent<ParticleSystem>().Play(true);
             gameObject.GetComponent<MeshRenderer>().enabled = false;
@@ -97,6 +97,10 @@ public class AsteroidPlayer : MonoBehaviour
             {
                 playerHealth = playerHealth - 1;
                 engineDamage = engineDamage - 0.3f;
+                if(engineDamage < 0.1f)
+                {
+                    engineDamage = 0.1f;
+                }
 
                 switch (playerHealth)
                 {

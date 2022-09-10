@@ -30,7 +30,7 @@ public class AsteroidSpawning : MonoBehaviour
 
     public void SpawnStuff()
     {
-        int tempSpawnLoc = Random.Range(0, 3);
+        int tempSpawnLoc = Random.Range(0, spawnAreas.Count-1);
 
         switch(tempSpawnLoc)
         {
