@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 64971835322495358}
   - component: {fileID: -6623161017789279017}
   - component: {fileID: -3822558324162208652}
+  - component: {fileID: -7380046465725074525}
   m_Layer: 0
   m_Name: SM_Env_Planet_01
   m_TagString: Planet
@@ -92,10 +93,10 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913396514770628}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 8e216bc6fd7bb314b92321983fdd0c8b, type: 3}
 --- !u!114 &-6623161017789279017
@@ -113,6 +114,14 @@ MonoBehaviour:
   planetsConnections: []
   maxRadius: 2000
   planetGenFinished: 0
+  conectionCosts: []
+  player: {fileID: 0}
+  UICanavas: {fileID: 0}
+  travelCost: 0
+  Travelable: 1
+  planetMeshs:
+  - {fileID: 4300000, guid: 8e216bc6fd7bb314b92321983fdd0c8b, type: 3}
+  - {fileID: 4300000, guid: bbda17a76562bea45a39799ed4db99d9, type: 3}
 --- !u!120 &-3822558324162208652
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -209,3 +218,19 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!54 &-7380046465725074525
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913396514770628}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

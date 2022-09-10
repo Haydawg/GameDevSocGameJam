@@ -13,18 +13,26 @@ public class PlanetScript : MonoBehaviour
     public List<float> conectionCosts = new List<float>();
     public GameObject player;
     public GameObject UICanavas;
+    public float travelCost;
+    public bool Travelable = true;
+    public List<Mesh> planetMeshs = new List<Mesh>();
+    bool planetDestroyed = false;
+    public LevelSelection minigame;
 
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("MakeConections", 1.0f);
+        gameObject.GetComponent<MeshFilter>().mesh = planetMeshs[0];
+        minigame = (LevelSelection)Random.Range(1, 4);
+
+        Invoke("MakeConections", 2.0f);
     }
 
     public void MakeConections()
     {
         float distance;
         planetArray = GameObject.FindGameObjectsWithTag("Planet");
-        for(int i = 0; i < (planetArray.Length-1); i++)
+        for(int i = 0; i < (planetArray.Length); i++)
         {
             distance = (planetArray[i].transform.position - gameObject.transform.position).magnitude;
             if(distance < maxRadius)
@@ -72,33 +80,52 @@ public class PlanetScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Travelable == false)
+        {
+            gameObject.GetComponent<MeshFilter>().mesh = planetMeshs[1];
+            if(planetDestroyed == false)
+            {
+                gameObject.transform.localScale = gameObject.transform.localScale + new Vector3(4, 4, 4);
+                planetDestroyed = true;
+            }
+        }
     }
 
     private void OnMouseOver()
     {
-        GameObject currentPlanet = player.GetComponent<TestPlayer>().currentLocation;
-
-        if (planetsConnections.Contains(currentPlanet))
+        if (Travelable == true)
         {
-            int costIndex;
+            GameObject currentPlanet = player.GetComponent<TestPlayer>().currentLocation;
 
-            costIndex = currentPlanet.GetComponent<PlanetScript>().planetsConnections.IndexOf(gameObject);
+            if (planetsConnections.Contains(currentPlanet))
+            {
+                int costIndex;
+                costIndex = currentPlanet.GetComponent<PlanetScript>().planetsConnections.IndexOf(gameObject);
+                travelCost = currentPlanet.GetComponent<PlanetScript>().conectionCosts[costIndex];
 
-            UICanavas.SetActive(true);
+                UICanavas.SetActive(true);
+                GameObject travelCostText = UICanavas.transform.FindChild("TravelCost").gameObject;
+                travelCostText.GetComponent<Text>().text = ("Travel Cost: " + travelCost + " fuel");
 
-
-            UICanavas.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 500, gameObject.transform.position.z);
-            GameObject travelCostText = UICanavas.transform.FindChild("TravelCost").gameObject;
-            travelCostText.GetComponent<Text>().text = ("Travel Cost: " + currentPlanet.GetComponent<PlanetScript>().conectionCosts[costIndex]);
-
-            Debug.Log(currentPlanet.GetComponent<PlanetScript>().conectionCosts[costIndex]);
+                Debug.Log(currentPlanet.GetComponent<PlanetScript>().conectionCosts[costIndex]);
+            }
         }
     }
 
     private void OnMouseExit()
     {
-        UICanavas.SetActive(false);
+        //UICanavas.SetActive(false);
+    }
+
+    private void OnMouseDown()
+    {
+        if (Travelable == true)
+        {
+            if (planetsConnections.Contains(player.GetComponent<TestPlayer>().currentLocation))
+            {
+                player.GetComponent<TestPlayer>().MoveToNextPlanet(gameObject, travelCost);
+            }
+        }
     }
 
     private void OnDrawGizmos()

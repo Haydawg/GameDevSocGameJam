@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 public enum LevelSelection
 {
     Overworld,
+    Astroid,
     Drilling,
     Scanning,
-    Astroid
 };
 public class GameManager : MonoBehaviour
 {
