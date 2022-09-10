@@ -18,6 +18,7 @@ public class ScanEffect : MonoBehaviour
         transform.localScale += growthRate * Time.deltaTime;
         if(transform.localScale.x >= maxSize)
         {
+            ScannerLevel.Instance.destroyedScanEffects++;
             Destroy(gameObject);
         }
     }

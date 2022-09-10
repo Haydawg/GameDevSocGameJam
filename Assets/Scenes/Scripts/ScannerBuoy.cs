@@ -27,7 +27,7 @@ public class ScannerBuoy : MonoBehaviour
             moveDir = moveToPos - transform.position;
             moveDir = moveDir.normalized;
             transform.position += moveDir * fallSpeed * Time.deltaTime;
-            transform.LookAt(moveDir);
+            transform.LookAt(moveToPos);
         }
         else
         {
@@ -39,16 +39,6 @@ public class ScannerBuoy : MonoBehaviour
         }
     }
     
-    public float ResourcesFound()
-    {
-        float returnValue = 0;
-        foreach(Resource resource in resourcesInRange)
-        {
-
-            returnValue += resource.amount;
-        }
-        return returnValue;
-    }
 
     public void Scan()
     {
@@ -62,7 +52,6 @@ public class ScannerBuoy : MonoBehaviour
                 resourcesInRange.Add(resource);
             }
         }
-        ResourcesFound();
     }
 
     public void Drop(Vector3 dropPoint)

@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class PlayerShipController : MonoBehaviour
 {
+    protected static PlayerShipController _Instance = null;
+    public static PlayerShipController Instance
+    {
+        get
+        {
+            if (_Instance == null)
+                _Instance = FindObjectOfType<PlayerShipController>();
+
+            return _Instance;
+        }
+    }
     public LevelSelection currentLevel;
     public PlanetScript currentPlanet;
     Camera camera;
@@ -68,10 +79,6 @@ public class PlayerShipController : MonoBehaviour
                 break;
 
             case LevelSelection.Astroid:
-                if (Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    DropScannerBuoy();
-                }
                 break;
             case LevelSelection.Scanning:
 
@@ -123,27 +130,6 @@ public class PlayerShipController : MonoBehaviour
             if (hit.collider.tag == "Planet")
             {
                 moveToLoc = hit.point;
-            }
-        }
-    }
-
-    void DropScannerBuoy()
-    {
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
-        {
-
-            if (hit.collider.tag == "Ground")
-            {
-
-                if (remainingScannerBuoys > 0)
-                {
-                    ScannerBuoy scannerBouy = Instantiate(scannerBuoyPrefab,this.transform.position, Quaternion.identity);
-                    scannerBouy.scannerRadius = scannerRadius;
-                    scannerBouy.Drop(hit.point);
-                    remainingScannerBuoys --;
-                }
             }
         }
     }

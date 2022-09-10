@@ -12,7 +12,33 @@ public enum LevelSelection
 };
 public class GameManager : MonoBehaviour
 {
+    protected static GameManager _Instance = null;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_Instance == null)
+                _Instance = FindObjectOfType<GameManager>();
+
+            return _Instance;
+        }
+    }
     public LevelSelection currentLevel;
+    public float resourceGathered;
+    [Header("Ship Stats")]
+    public float shipHealth;
+
+    public float thrusterHealth;
+    public float thrusterSpeed;
+
+    public float weaponHealth;
+    public float weaponDamage;
+    public float weaponFireRate;
+
+    public float scannerHealth;
+    public int scannerAmount;
+    public float scannerRadius;
+
     // Start is called before the first frame update
     void Start()
     {
