@@ -57,6 +57,6 @@ public class AsteroidSpawning : MonoBehaviour
         }
 
         GameObject obj = Instantiate(spawnableObj[Random.Range(0, spawnableObj.Count)], spawnLoc.transform.position, gameObject.transform.rotation);
-        obj.GetComponent<Rigidbody>().AddForce(Vector3.forward * -13, ForceMode.Impulse);
+        obj.GetComponent<Rigidbody>().AddForce(Vector3.forward * -15, ForceMode.Impulse);
     }
 }

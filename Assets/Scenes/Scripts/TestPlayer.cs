@@ -16,6 +16,7 @@ public class TestPlayer : MonoBehaviour
     public Text fuelLeftText;
     public List<GameObject> engineFX = new List<GameObject>();
     public Text launchGameText;
+    public Text victoryText;
 
     public AudioClip engineSound;
 
@@ -39,6 +40,14 @@ public class TestPlayer : MonoBehaviour
                 engine.GetComponent<ParticleSystem>().Stop(true);
             }
         }
+
+        if (currentLocation != null)
+        {
+            if (currentLocation.GetComponent<PlanetScript>().finalPLanet == true)
+            {
+                victoryText.enabled = true;
+            }
+        }
     }
 
     public void MoveToNextPlanet(GameObject nextPlanet, float travelCost)
@@ -48,6 +57,7 @@ public class TestPlayer : MonoBehaviour
             nextPos = new Vector3(nextPlanet.transform.position.x, 400, nextPlanet.transform.position.z);
             gameObject.transform.LookAt(nextPos, Vector3.up);
             StartCoroutine(LerpPosition(nextPos, 7f));
+            currentLocation.GetComponent<PlanetScript>().Travelable = false;
             currentLocation = nextPlanet;
             fuel = fuel - travelCost;
             fuelLeftText.text = "Fuel left: " + fuel;

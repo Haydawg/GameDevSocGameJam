@@ -112,6 +112,8 @@ public class PlanetGeneration : MonoBehaviour, ISaveable
                     }
                 }
             }
+            planetList[planetList.Count - 1].GetComponent<PlanetScript>().finalPLanet = true;
+
             GameManager.Instance.newGame = false;
 
             if (player.GetComponent<TestPlayer>().currentLocation == null)
