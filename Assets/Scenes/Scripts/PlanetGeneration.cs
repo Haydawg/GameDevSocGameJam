@@ -6,6 +6,17 @@ using System;
 
 public class PlanetGeneration : MonoBehaviour, ISaveable
 {
+    protected static PlanetGeneration _Instance = null;
+    public static PlanetGeneration Instance
+    {
+        get
+        {
+            if (_Instance == null)
+                _Instance = FindObjectOfType<PlanetGeneration>();
+
+            return _Instance;
+        }
+    }
     public List<GameObject> spawnablePlanets = new List<GameObject>();
     public int gridLength = 100;
     public int gridWidth = 50;
@@ -14,10 +25,10 @@ public class PlanetGeneration : MonoBehaviour, ISaveable
     public GameObject popUpCanavas;
     public List<GameObject> planetList = new List<GameObject>();
     public EnemyFleet enemyFleet;
-    SaveLoadSystem saveLoadSystem;
+    public SaveLoadSystem saveLoadSystem;
 
     GameObject currentPlanet;
-
+    public List<GameObject> visitedPlanets = new List<GameObject>();
     [Serializable]
     private struct SaveData
     {
@@ -26,6 +37,7 @@ public class PlanetGeneration : MonoBehaviour, ISaveable
         public float enemyX;
         public float enemyY;
         public float enemyZ;
+        public List<int> visitedPlanetIndices;
     }
 
     public void LoadState(object state)
@@ -44,6 +56,11 @@ public class PlanetGeneration : MonoBehaviour, ISaveable
         player.transform.position = new Vector3(planetList[saveData.playerIndex].transform.position.x, 400, planetList[saveData.playerIndex].transform.position.z);
         planetList[saveData.playerIndex].GetComponent<PlanetScript>().Travelable = false;
         enemyFleet.MoveTo(new Vector3(saveData.enemyX, saveData.enemyY, saveData.enemyZ));
+        foreach(int index in saveData.visitedPlanetIndices)
+        {
+            planetList[index].GetComponent<PlanetScript>().Travelable = false;
+            visitedPlanets.Add(planetList[index]);
+        }
     }
 
     public object SaveState()
@@ -55,6 +72,12 @@ public class PlanetGeneration : MonoBehaviour, ISaveable
             saveData.planetVectors.Add((planet.transform.position.x,planet.transform.position.y, planet.transform.position.z));
         }
         saveData.playerIndex = planetList.IndexOf(player.GetComponent<TestPlayer>().currentLocation);
+        saveData.visitedPlanetIndices = new List<int>();
+        foreach(GameObject planet in visitedPlanets)
+        {
+            int index = planetList.IndexOf(planet);
+            saveData.visitedPlanetIndices.Add(index);
+        }
         saveData.enemyX = enemyFleet.transform.position.x;
         saveData.enemyY = enemyFleet.transform.position.y;
         saveData.enemyZ = enemyFleet.transform.position.z;
@@ -121,6 +144,7 @@ public class PlanetGeneration : MonoBehaviour, ISaveable
             {
                 player.transform.position = new Vector3(planetList[0].transform.position.x, 400, planetList[0].transform.position.z);
                 player.GetComponent<TestPlayer>().currentLocation = planetList[0];
+                visitedPlanets.Add(planetList[0]);
             }
         }
         else
