@@ -63,6 +63,7 @@ public class TestPlayer : MonoBehaviour
             StartCoroutine(LerpPosition(nextPos, 7f));
             currentLocation.GetComponent<PlanetScript>().Travelable = false;
             currentLocation = nextPlanet;
+            PlanetGeneration.Instance.visitedPlanets.Add(currentLocation);
             fuel = fuel - travelCost;
             fuelLeftText.text = "Fuel left: " + fuel;
             foreach (GameObject engine in engineFX)
