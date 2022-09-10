@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScannerLevel : MonoBehaviour
 {
@@ -23,6 +24,9 @@ public class ScannerLevel : MonoBehaviour
     public int remainingScannerBuoys;
     public float resourceGathered;
     public int destroyedScanEffects;
+    [SerializeField] Text remaingscannersText;
+    [SerializeField] Button endButton;
+    [SerializeField] Text endText;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +34,9 @@ public class ScannerLevel : MonoBehaviour
         camera = Camera.main;
         scannerRadius = GameManager.Instance.scannerHealth;
         remainingScannerBuoys = 3;
+        remaingscannersText.text = remainingScannerBuoys.ToString();
+        endButton.gameObject.SetActive(false);
+        endText.enabled = false;
     }
 
     // Update is called once per frame
@@ -60,6 +67,7 @@ public class ScannerLevel : MonoBehaviour
                     scannerBouy.scannerRadius = scannerRadius;
                     scannerBouy.Drop(hit.point);
                     remainingScannerBuoys--;
+                    remaingscannersText.text = remainingScannerBuoys.ToString();
                 }
             }
         }
@@ -67,7 +75,14 @@ public class ScannerLevel : MonoBehaviour
     void EndLevel()
     {
         GameManager.Instance.resourceGathered = resourceGathered;
+        endText.text = "You retrieved " + resourceGathered.ToString() + " units of fuel";
+        endButton.gameObject.SetActive(true);
+        endText.enabled = true;
     }
 
+    public void LoadScene()
+    {
+        GameManager.Instance.LoadScene(1);
+    }
 
 }

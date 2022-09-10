@@ -29,8 +29,7 @@ public class Npc_Projectile : MonoBehaviour
         Debug.Log(other.gameObject.name);
         if (other.gameObject == target)
         {
-            //do damage;
-            Debug.Log("Hurt");
+            DrillLevel.Instance.shipHealth -= 10;
             Destroy(gameObject);
         }
     }
