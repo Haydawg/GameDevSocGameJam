@@ -8,6 +8,7 @@ public class AsteroidPlayer : MonoBehaviour
     public GameManager gameManager;
 
     public float speed = 1;
+    public float engineDamage = 1;
     public GameObject healthImage;
     public int playerHealth = 3;
     public float gameTimer = 60;
@@ -25,6 +26,7 @@ public class AsteroidPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        speed = speed * engineDamage;
         gameTimer = gameTimer - Time.deltaTime;
         timerText.text = ("Time Remaining: " + (int)gameTimer);
 
@@ -94,6 +96,7 @@ public class AsteroidPlayer : MonoBehaviour
             if (other.CompareTag("Asteroid"))
             {
                 playerHealth = playerHealth - 1;
+                engineDamage = engineDamage - 0.3f;
 
                 switch (playerHealth)
                 {

@@ -18,6 +18,8 @@ public class PlanetScript : MonoBehaviour
     public List<Mesh> planetMeshs = new List<Mesh>();
     bool planetDestroyed = false;
     public LevelSelection minigame;
+    public bool finalPLanet = false;
+    public GameObject finalTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -73,6 +75,11 @@ public class PlanetScript : MonoBehaviour
             newChild.GetComponent<LineRenderer>().SetPosition(0, gameObject.transform.position);
             newChild.GetComponent<LineRenderer>().SetPosition(1, planet.transform.position);
         }
+        if(finalPLanet == true)
+        {
+            Vector3 targetPoint = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 400, gameObject.transform.position.z);
+            Instantiate(finalTarget, targetPoint, Quaternion.Euler(90,0,0));
+        }
 
         planetGenFinished = true;
     }
@@ -106,8 +113,6 @@ public class PlanetScript : MonoBehaviour
                 UICanavas.SetActive(true);
                 GameObject travelCostText = UICanavas.transform.Find("TravelCost").gameObject;
                 travelCostText.GetComponent<Text>().text = ("Travel Cost: " + travelCost + " fuel");
-
-                Debug.Log(currentPlanet.GetComponent<PlanetScript>().conectionCosts[costIndex]);
             }
         }
     }

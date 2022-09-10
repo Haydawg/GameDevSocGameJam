@@ -123,6 +123,9 @@ MonoBehaviour:
   planetMeshs:
   - {fileID: 4300000, guid: 79ad3d1512a521b4894921bf24254715, type: 3}
   - {fileID: 4300000, guid: bbda17a76562bea45a39799ed4db99d9, type: 3}
+  minigame: 0
+  finalPLanet: 0
+  finalTarget: {fileID: 1586945245971122, guid: 2cdc82ab68e3ad8499d10681692707b5, type: 3}
 --- !u!120 &1710741958954935807
 LineRenderer:
   m_ObjectHideFlags: 0
