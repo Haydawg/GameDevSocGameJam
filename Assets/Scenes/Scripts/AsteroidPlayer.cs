@@ -19,7 +19,7 @@ public class AsteroidPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager = GameManager.Instance;
     }
 
     // Update is called once per frame
@@ -116,6 +116,6 @@ public class AsteroidPlayer : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        gameManager.LoadScene(0);
+        gameManager.LoadScene(1);
     }
 }

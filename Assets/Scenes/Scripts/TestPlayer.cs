@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TestPlayer : MonoBehaviour
 {
-    public GameManager gameManager;
+    GameManager gameManager;
 
     public GameObject currentLocation;
     public float fuel;
@@ -24,6 +24,7 @@ public class TestPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         fuelLeftText.text = "Fuel left: " + fuel;
     }
 

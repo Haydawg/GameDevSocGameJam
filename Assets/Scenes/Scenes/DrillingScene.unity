@@ -339,6 +339,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1259628298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1259628300}
+  - component: {fileID: 1259628299}
+  m_Layer: 0
+  m_Name: SaveLoadSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1259628299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259628298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 602acb347ea563a4287c4ea30caa7d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveName: Overworld
+--- !u!4 &1259628300
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259628298}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 252.21527, y: 83.357376, z: 295.20206}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1301133999
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,7 +495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e759364abb281334290b8b6e6a4a5d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1739280801}
+  target: {fileID: 2110108841}
   npcToSpawn: {fileID: 7817524746880966653, guid: 72286374c7ec53747a330d5005840113, type: 3}
   maxSpawn: 15
   spanwRate: 5

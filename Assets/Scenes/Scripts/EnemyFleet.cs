@@ -34,8 +34,12 @@ public class EnemyFleet : MonoBehaviour
         StartCoroutine(LerpPosition(newPos, 5f));
         calcMove = true;
     }
+    public void MoveTo(Vector3 newPos)
+    {
+        StartCoroutine(LerpPosition(newPos, 0.1f));
+    }
 
-    IEnumerator LerpPosition(Vector3 targetPosition, float duration)
+    public IEnumerator LerpPosition(Vector3 targetPosition, float duration)
     {
         float time = 0;
         Vector3 startPosition = transform.position;

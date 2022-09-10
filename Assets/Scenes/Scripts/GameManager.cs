@@ -39,16 +39,22 @@ public class GameManager : MonoBehaviour
     public int scannerAmount;
     public float scannerRadius;
 
+    public bool newGame;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     // Start is called before the first frame update
     void Start()
     {
-        
+        newGame = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+       
     }
 
     public void LoadScene(int sceneNumber)
@@ -59,4 +65,5 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+    
 }
