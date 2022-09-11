@@ -8,7 +8,7 @@ public class AsteroidSpawning : MonoBehaviour
     public List<GameObject> spawnableObj = new List<GameObject>();
     public List<GameObject> spawnAreas = new List<GameObject>();
     public GameObject spawnLoc;
-    public float SpawnDelay = 2f;
+    public float SpawnDelay = 1.5f;
     float timePassed = 0;
 
     // Start is called before the first frame update

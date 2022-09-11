@@ -16,6 +16,7 @@ public class AsteroidPlayer : MonoBehaviour
     public Text endText;
     public Button endButton;
     public bool gameEnded = false;
+    bool fuelCollected = false;
 
     // Start is called before the first frame update
     void Start()
@@ -74,19 +75,26 @@ public class AsteroidPlayer : MonoBehaviour
         if(gameTimer <= 0)
         {
             gameEnded = true;
-            switch(playerHealth)
+            if (fuelCollected == false)
             {
-                case 3: endText.text = "Well done you got 50 fuel with out taking any damage!";
-                    GameManager.Instance.fuelAmount += 50;
-                    break;
-                case 2:
-                    endText.text = "You got 40 fuel and only took minor damage";
-                    GameManager.Instance.fuelAmount += 40;
-                    break;
-                case 1:
-                    endText.text = "You got 30 fuel but suffered major damage";
-                    GameManager.Instance.fuelAmount += 30;
-                    break;
+                switch (playerHealth)
+                {
+                    case 3:
+                        endText.text = "Well done you got 50 fuel with out taking any damage!";
+                        GameManager.Instance.fuelAmount += 50;
+                        fuelCollected = true;
+                        break;
+                    case 2:
+                        endText.text = "You got 40 fuel and only took minor damage";
+                        GameManager.Instance.fuelAmount += 40;
+                        fuelCollected = true;
+                        break;
+                    case 1:
+                        endText.text = "You got 30 fuel but suffered major damage";
+                        GameManager.Instance.fuelAmount += 30;
+                        fuelCollected = true;
+                        break;
+                }
             }
             endText.enabled = true;
             endButton.gameObject.SetActive(true);

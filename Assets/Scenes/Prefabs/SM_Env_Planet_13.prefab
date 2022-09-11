@@ -125,6 +125,7 @@ MonoBehaviour:
   minigame: 0
   finalPLanet: 0
   finalTarget: {fileID: 1586945245971122, guid: 2cdc82ab68e3ad8499d10681692707b5, type: 3}
+  lineMat: {fileID: 2100000, guid: 86fe227c454bb1f45aa4463733283f3d, type: 2}
 --- !u!120 &6997388365200796896
 LineRenderer:
   m_ObjectHideFlags: 0

@@ -7,7 +7,6 @@ public class TestPlayer : MonoBehaviour
 {
 
     public GameObject currentLocation;
-    public float fuel;
     public float moveTime = 0;
     public GameObject playerCamera;
     public GameObject enemy;
@@ -15,7 +14,7 @@ public class TestPlayer : MonoBehaviour
     public Text fuelLeftText;
     public List<GameObject> engineFX = new List<GameObject>();
     public Text launchGameText;
-    public Text victoryText;
+    public Text endText;
     public GameObject exitButton;
 
     public AudioClip engineSound;
@@ -44,9 +43,16 @@ public class TestPlayer : MonoBehaviour
         {
             if (currentLocation.GetComponent<PlanetScript>().finalPLanet == true)
             {
-                victoryText.enabled = true;
+                endText.enabled = true;
                 exitButton.SetActive(true);
             }
+        }
+
+        if(alive == false)
+        {
+            endText.text = "The Enenmy caught you";
+            endText.enabled = true;
+            exitButton.SetActive(true);
         }
 
         launchGameText.text = currentLocation.GetComponent<PlanetScript>().minigame.ToString();
