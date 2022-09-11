@@ -22,7 +22,7 @@ public class AsteroidPlayer : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.Instance;
-        //engineDamage = GameManager.Instance.thrusterHealth;
+        engineDamage = GameManager.Instance.thrusterHealth;
     }
 
     // Update is called once per frame

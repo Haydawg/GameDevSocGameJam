@@ -106,7 +106,7 @@ public class TestPlayer : MonoBehaviour
                         damageText.text = "Your scanners took " + randomDamage + " damage \n scanner health: " + GameManager.Instance.scannerHealth + "/100";
                         break;
                     case 2:
-                        randomDamage = Random.Range(10, 15);
+                        randomDamage = Random.Range(10, 20);
                         GameManager.Instance.weaponHealth = GameManager.Instance.weaponHealth - randomDamage;
                         damageText.text = "Your weapons took " + randomDamage + " damage \n weapon health: " + GameManager.Instance.weaponHealth + "/100";
                         break;
