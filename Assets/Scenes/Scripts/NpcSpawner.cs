@@ -25,7 +25,8 @@ public class NpcSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (DrillLevel.Instance.endGame)
+            return;
         if (totalspawned >= maxSpawn)
             return;
         timeSinceLastSpawn += Time.deltaTime;

@@ -22,86 +22,126 @@ public class DrillLevel : MonoBehaviour
     [SerializeField]GameObject weapon;
     [SerializeField]LaserProjectile weaponProjectile;
     float timeSinceLastFired;
-    float resourceGathered;
+    int resourceGathered;
     [SerializeField] Button endButton;
     [SerializeField] Text endText;
     public float remainingTime;
     public Image timeBar;
     public float shipHealth;
     public Image healthBar;
+    public bool endGame = false;
+    [SerializeField] float laserDisplayTime;
+    LineRenderer lineRenderer;
+    [SerializeField] GameObject explosionPrefab;
+    GameObject currentExplosion;
+    [SerializeField] Material material;
     // Start is called before the first frame update
     void Start()
     {
+        lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer.startColor = Color.red;
+        lineRenderer.endColor = Color.red;
+        lineRenderer.startWidth = 0.5f;
+        lineRenderer.endWidth = 0.1f;
+        lineRenderer.material = material;
         endButton.gameObject.SetActive(false);
         endText.enabled = false;
         shipHealth = 100;
+        weaponDamage = 100;
         remainingTime = 60;
-        timeSinceLastFired = 0;
+        timeSinceLastFired = weaponFireRate;
         camera = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
-        timeSinceLastFired += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (!endGame)
         {
-            if (timeSinceLastFired > weaponFireRate)
-                Fire();
+            timeSinceLastFired += Time.deltaTime;
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                if (timeSinceLastFired > weaponFireRate)
+                    Fire();
+            }
+            if (shipHealth <= 0)
+            {
+                LeaveLevel();
+            }
+            remainingTime -= Time.deltaTime;
+            timeBar.fillAmount = remainingTime / 60;
+            healthBar.fillAmount = shipHealth / 100;
+            if (remainingTime <= 0)
+            {
+                AllDrilled();
+            }
         }
-        if(shipHealth <= 0)
-        {
-            LeaveLevel();
-        }
-        remainingTime -= Time.deltaTime;
-        timeBar.fillAmount = remainingTime / 60;
-        healthBar.fillAmount = shipHealth / 100;
-        if(remainingTime <= 0)
-        {
-            AllDrilled();
-        }
-        resourceGathered += Time.deltaTime / 2;
     }
+
     void Fire()
     {
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+        lineRenderer.SetPosition(0, weapon.transform.position);
         if (Physics.Raycast(ray, out hit))
         {
-            timeSinceLastFired = 0;
-            LaserProjectile laser = Instantiate(weaponProjectile, new Vector3(weapon.transform.position.x, weapon.transform.position.y - 10, weapon.transform.position.z), Quaternion.identity);
-            laser.targetPos = hit.point;
-
-            if (hit.collider.gameObject.GetComponent<Npc>())
+            Debug.Log("hit");
+            if (Physics.Raycast(weapon.transform.position, hit.point - weapon.transform.position, out hit))
             {
-                Npc npc = hit.collider.gameObject.GetComponent<Npc>();
-                npc.TakeDamage(weaponDamage);
+                Debug.Log("hit");
 
+                timeSinceLastFired = 0;
+                lineRenderer.SetPosition(1, hit.point);
+                currentExplosion = Instantiate(explosionPrefab, hit.point, Quaternion.identity);
+                StartCoroutine(Explosion());
+
+                StartCoroutine(Laser(laserDisplayTime));
+                if (hit.collider.gameObject.GetComponent<Npc>())
+                {
+                    Npc npc = hit.collider.gameObject.GetComponent<Npc>();
+                    npc.TakeDamage(weaponDamage);
+
+                }
             }
         }
 
     }
     IEnumerator Laser(float laserActivationTime)
     {
-        //lineRenderer.enabled = true;
+
+        lineRenderer.enabled = true;
         yield return new WaitForSeconds(laserActivationTime);
-        //lineRenderer.enabled = false;
+        lineRenderer.enabled = false;
+    }
+    IEnumerator Explosion()
+    {
+        yield return new WaitForSeconds(4);
+
+        if (currentExplosion)
+            Destroy(currentExplosion);
+
     }
     void LeaveLevel()
     {
-        endText.enabled = true;
-        endText.text = "Youv'e sustained to much damage you leave with " + resourceGathered.ToString();
+        resourceGathered = 60 - (int)remainingTime;
+        endGame = true;
         endButton.gameObject.SetActive(true);
+        endText.enabled = true;
+        endText.text = "Youv'e sustained to much damage you leave with " + resourceGathered.ToString() + " units of fuel";
     }
     void AllDrilled()
     {
+        resourceGathered = 60 - (int)remainingTime;
+        endGame = true;
         endButton.gameObject.SetActive(true);
         endText.enabled = true;
-        endText.text = "You've drained this planet you leave with " + resourceGathered.ToString();
+        endText.text = "You've drained this planet you leave with " + resourceGathered.ToString() + " units of fuel";
     }
     
     public void LoadScene()
     {
+        GameManager.Instance.resourceGathered = resourceGathered;
+        Debug.Log("press");
         GameManager.Instance.LoadScene(1);
     }
 }
