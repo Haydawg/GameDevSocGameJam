@@ -22,7 +22,7 @@ public class ScannerBuoy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(transform.position, moveToPos) > 0.1f)
+        if(Vector3.Distance(transform.position, moveToPos) > 0.4f)
         {
             moveDir = moveToPos - transform.position;
             moveDir = moveDir.normalized;

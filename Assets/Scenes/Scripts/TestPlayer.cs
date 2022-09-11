@@ -32,7 +32,7 @@ public class TestPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerCamera.transform.position = new Vector3(gameObject.transform.position.x, 3200, gameObject.transform.position.z);
+        playerCamera.transform.position = new Vector3(gameObject.transform.position.x, 4000, gameObject.transform.position.z);
         if (nextPos == gameObject.transform.position)
         {
             foreach (GameObject engine in engineFX)
