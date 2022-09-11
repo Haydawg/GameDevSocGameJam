@@ -32,7 +32,7 @@ public class TestPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerCamera.transform.position = new Vector3(gameObject.transform.position.x, 2600, gameObject.transform.position.z);
+        playerCamera.transform.position = new Vector3(gameObject.transform.position.x, 3000, gameObject.transform.position.z);
         if (nextPos == gameObject.transform.position)
         {
             foreach (GameObject engine in engineFX)
@@ -98,7 +98,7 @@ public class TestPlayer : MonoBehaviour
                     case 0:
                         randomDamage = Random.Range(0.1f, 0.15f);
                         GameManager.Instance.thrusterHealth = GameManager.Instance.thrusterHealth - randomDamage;
-                        damageText.text = "Your thrusters took " + (double)(randomDamage * 100) + " damage \n thruster health: " + (double)(GameManager.Instance.thrusterHealth) + "/100";
+                        damageText.text = "Your thrusters took " + (int)(randomDamage * 100) + " damage \n thruster health: " + (int)(GameManager.Instance.thrusterHealth) + "/100";
                         break;
                     case 1:
                         randomDamage = Random.Range(10, 15);

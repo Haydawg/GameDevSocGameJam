@@ -163,6 +163,9 @@ public class PlanetGeneration : MonoBehaviour, ISaveable
     {
         saveLoadSystem.Save();
         Debug.Log((int)player.GetComponent<TestPlayer>().currentLocation.GetComponent<PlanetScript>().minigame + 1);
-        GameManager.Instance.LoadScene((int)player.GetComponent<TestPlayer>().currentLocation.GetComponent<PlanetScript>().minigame + 1);
+        if (player.GetComponent<TestPlayer>().currentLocation.GetComponent<PlanetScript>().Travelable == true)
+        {
+            GameManager.Instance.LoadScene((int)player.GetComponent<TestPlayer>().currentLocation.GetComponent<PlanetScript>().minigame + 1);
+        }
     }
 }
