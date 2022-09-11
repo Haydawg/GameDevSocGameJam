@@ -132,7 +132,7 @@ public class TestPlayer : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        GameManager.Instance.LoadScene(0);
     }
 
     IEnumerator LerpPosition(Vector3 targetPosition, float duration)

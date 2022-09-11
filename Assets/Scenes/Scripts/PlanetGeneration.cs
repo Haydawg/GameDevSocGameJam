@@ -61,6 +61,7 @@ public class PlanetGeneration : MonoBehaviour, ISaveable
             planetList[index].GetComponent<PlanetScript>().Travelable = false;
             visitedPlanets.Add(planetList[index]);
         }
+        planetList[planetList.Count - 1].GetComponent<PlanetScript>().finalPLanet = true;
     }
 
     public object SaveState()
