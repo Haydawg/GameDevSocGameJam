@@ -140,7 +140,7 @@ public class DrillLevel : MonoBehaviour
     
     public void LoadScene()
     {
-        GameManager.Instance.resourceGathered = resourceGathered;
+        GameManager.Instance.fuelAmount += resourceGathered;
         Debug.Log("press");
         GameManager.Instance.LoadScene(1);
     }

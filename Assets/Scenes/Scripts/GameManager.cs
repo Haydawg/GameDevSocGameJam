@@ -30,9 +30,9 @@ public class GameManager : MonoBehaviour
 
     public float thrusterHealth = 1f;
 
-    public float weaponHealth;
+    public float weaponHealth = 100;
 
-    public float scannerHealth;
+    public float scannerHealth = 100;
 
     public bool newGame;
 
