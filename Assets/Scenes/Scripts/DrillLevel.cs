@@ -35,6 +35,7 @@ public class DrillLevel : MonoBehaviour
     [SerializeField] GameObject explosionPrefab;
     GameObject currentExplosion;
     [SerializeField] Material material;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +50,7 @@ public class DrillLevel : MonoBehaviour
         shipHealth = 100;
         weaponDamage = 100;
         remainingTime = 60;
+        weaponFireRate = FireRateMuliplier();
         timeSinceLastFired = weaponFireRate;
         camera = Camera.main;
     }
@@ -75,6 +77,7 @@ public class DrillLevel : MonoBehaviour
             {
                 AllDrilled();
             }
+            
         }
     }
 
@@ -143,5 +146,28 @@ public class DrillLevel : MonoBehaviour
         GameManager.Instance.fuelAmount += resourceGathered;
         Debug.Log("press");
         GameManager.Instance.LoadScene(1);
+    }
+    float FireRateMuliplier()
+    {
+        float health = GameManager.Instance.weaponHealth;
+        if (health == 100)
+            weaponFireRate = 1;
+        else if (health >= 75)
+            weaponFireRate = 1.5f;
+        else if (health >= 60)
+            weaponFireRate = 2f;
+        else if (health >= 50)
+            weaponFireRate = 2.5f;
+        else if (health >= 40)
+            weaponFireRate = 3f;
+        else if (health >= 30)
+            weaponFireRate = 3.5f;
+        else if (health >= 20)
+            weaponFireRate = 4f;
+        else if (health >= 10)
+            weaponFireRate = 4.5f;
+        else if (health >= 0)
+            weaponFireRate = 5f;
+        return 0.0f;
     }
 }

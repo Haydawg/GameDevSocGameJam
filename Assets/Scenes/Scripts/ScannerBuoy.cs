@@ -43,6 +43,7 @@ public class ScannerBuoy : MonoBehaviour
     public void Scan()
     {
         ScanEffect scannerSphere = Instantiate(scanEffect, this.transform.position, Quaternion.identity);
+        ScannerLevel.Instance.scanners.Add(scannerSphere);
         scannerSphere.maxSize = scannerRadius;
         resourcesInLevel = FindObjectsOfType<Resource>();
         foreach(Resource resource in resourcesInLevel)

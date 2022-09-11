@@ -19,6 +19,7 @@ public class ScanEffect : MonoBehaviour
         if(transform.localScale.x >= maxSize)
         {
             ScannerLevel.Instance.destroyedScanEffects++;
+            ScannerLevel.Instance.scanners.Remove(this);
             Destroy(gameObject);
         }
     }

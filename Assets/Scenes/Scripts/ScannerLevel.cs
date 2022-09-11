@@ -27,6 +27,8 @@ public class ScannerLevel : MonoBehaviour
     [SerializeField] Text remaingscannersText;
     [SerializeField] Button endButton;
     [SerializeField] Text endText;
+    public List<ScanEffect> scanners = new List<ScanEffect>();
+    [SerializeField] AudioSource audio;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,6 +51,13 @@ public class ScannerLevel : MonoBehaviour
         if(destroyedScanEffects == 3)
         {
             EndLevel();
+        }
+        if(scanners.Count != 0)
+        {
+            if (!audio.isPlaying)
+                audio.PlayOneShot(audio.clip);
+            else
+                audio.Stop();
         }
     }
     void DropScannerBuoy()
