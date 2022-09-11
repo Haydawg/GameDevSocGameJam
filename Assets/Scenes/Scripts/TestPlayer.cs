@@ -45,16 +45,23 @@ public class TestPlayer : MonoBehaviour
         {
             if (currentLocation.GetComponent<PlanetScript>().finalPLanet == true)
             {
-                endText.enabled = true;
-                exitButton.SetActive(true);
+                Vector3 finalPlanetPos = new Vector3(currentLocation.transform.position.x, 400, currentLocation.transform.position.z);
+                if (gameObject.transform.position == finalPlanetPos)
+                {
+                    endText.enabled = true;
+                    exitButton.SetActive(true);
+                }
             }
         }
 
         if(alive == false)
         {
-            endText.text = "The Enenmy caught you";
-            endText.enabled = true;
-            exitButton.SetActive(true);
+            if (currentLocation.GetComponent<PlanetScript>().finalPLanet == false)
+            {
+                endText.text = "The Enenmy caught you";
+                endText.enabled = true;
+                exitButton.SetActive(true);
+            }
         }
 
         launchGameText.text = currentLocation.GetComponent<PlanetScript>().minigame.ToString();
@@ -62,46 +69,54 @@ public class TestPlayer : MonoBehaviour
 
     public void MoveToNextPlanet(GameObject nextPlanet, float travelCost)
     {
-        if (travelCost <= GameManager.Instance.fuelAmount)
+        Vector3 currentPos = new Vector3(currentLocation.transform.position.x, 400, currentLocation.transform.position.z);
+        if (gameObject.transform.position == currentPos)
         {
-            nextPos = new Vector3(nextPlanet.transform.position.x, 400, nextPlanet.transform.position.z);
-            gameObject.transform.LookAt(nextPos, Vector3.up);
-            StartCoroutine(LerpPosition(nextPos, 7f));
-            currentLocation.GetComponent<PlanetScript>().Travelable = false;
-            currentLocation = nextPlanet;
-            PlanetGeneration.Instance.visitedPlanets.Add(currentLocation);
-            GameManager.Instance.fuelAmount = GameManager.Instance.fuelAmount - travelCost;
-            fuelLeftText.text = "Fuel left: " + GameManager.Instance.fuelAmount;
-            foreach (GameObject engine in engineFX)
+            if (travelCost <= GameManager.Instance.fuelAmount)
             {
-                engine.GetComponent<ParticleSystem>().Play(true);
+                nextPos = new Vector3(nextPlanet.transform.position.x, 400, nextPlanet.transform.position.z);
+                gameObject.transform.LookAt(nextPos, Vector3.up);
+                StartCoroutine(LerpPosition(nextPos, 7f));
+                currentLocation.GetComponent<PlanetScript>().Travelable = false;
+                currentLocation = nextPlanet;
+                PlanetGeneration.Instance.visitedPlanets.Add(currentLocation);
+                GameManager.Instance.fuelAmount = GameManager.Instance.fuelAmount - travelCost;
+                fuelLeftText.text = "Fuel left: " + GameManager.Instance.fuelAmount;
+                foreach (GameObject engine in engineFX)
+                {
+                    engine.GetComponent<ParticleSystem>().Play(true);
+                }
+                gameObject.GetComponent<AudioSource>().clip = engineSound;
+                gameObject.GetComponent<AudioSource>().Play();
+
+                enemy.GetComponent<EnemyFleet>().MoveForward();
+
+                float randomDamage = 0;
+                int randomSystem = Random.Range(0, 4);
+                switch (randomSystem)
+                {
+                    case 0:
+                        randomDamage = Random.Range(0.1f, 0.15f);
+                        GameManager.Instance.thrusterHealth = GameManager.Instance.thrusterHealth - randomDamage;
+                        damageText.text = "Your thrusters took " + (double)(randomDamage * 100) + " damage \n thruster health: " + (double)(GameManager.Instance.thrusterHealth) + "/100";
+                        break;
+                    case 1:
+                        randomDamage = Random.Range(10, 15);
+                        GameManager.Instance.scannerHealth = GameManager.Instance.scannerHealth - randomDamage;
+                        damageText.text = "Your scanners took " + randomDamage + " damage \n scanner health: " + GameManager.Instance.scannerHealth + "/100";
+                        break;
+                    case 2:
+                        randomDamage = Random.Range(10, 15);
+                        GameManager.Instance.weaponHealth = GameManager.Instance.weaponHealth - randomDamage;
+                        damageText.text = "Your weapons took " + randomDamage + " damage \n weapon health: " + GameManager.Instance.weaponHealth + "/100";
+                        break;
+                    case 3:
+                        damageText.text = "You took no damage this trip";
+                        break;
+
+                }
+                damageButton.SetActive(true);
             }
-            gameObject.GetComponent<AudioSource>().clip = engineSound;
-            gameObject.GetComponent<AudioSource>().Play();
-
-            enemy.GetComponent<EnemyFleet>().MoveForward();
-
-            float randomDamage = 0;
-            int randomSystem = Random.Range(0, 5);
-            switch(randomSystem)
-            {
-                case 0: randomDamage = Random.Range(0.1f, 0.15f);
-                    GameManager.Instance.thrusterHealth = GameManager.Instance.thrusterHealth - randomDamage;
-                    damageText.text = "Your thrusters took " + (double)randomDamage*100 + " damage \n thruster health: " + (double)GameManager.Instance.thrusterHealth + "/100";
-                    break;
-                case 1: randomDamage = Random.Range(10, 15);
-                    GameManager.Instance.scannerHealth = GameManager.Instance.thrusterHealth - randomDamage;
-                    damageText.text = "Your scanners took " +randomDamage+ " damage \n scanner health: " + GameManager.Instance.scannerHealth + "/100";
-                    break;
-                case 2: randomDamage = Random.Range(10, 15);
-                    GameManager.Instance.weaponHealth = GameManager.Instance.weaponHealth - randomDamage;
-                    damageText.text = "Your weapons took " +randomDamage+ " damage \n weapon health: " + GameManager.Instance.weaponHealth + "/100";
-                    break;
-                case 3: damageText.text = "You took no damage this trip";
-                    break;
-
-            }
-            damageButton.SetActive(true);
         }
     }
 
