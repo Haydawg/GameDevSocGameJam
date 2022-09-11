@@ -108,7 +108,7 @@ public class AsteroidPlayer : MonoBehaviour
             if (other.CompareTag("Asteroid"))
             {
                 playerHealth = playerHealth - 1;
-                engineDamage = engineDamage - 0.2f;
+                engineDamage = engineDamage - Random.Range(0.1f, 0.15f);
                 if(engineDamage < 0.1f)
                 {
                     engineDamage = 0.1f;
@@ -132,6 +132,9 @@ public class AsteroidPlayer : MonoBehaviour
                 }
             }
         }
+        GameObject boom = Instantiate((gameObject.transform.Find("AsteroidShipExp").gameObject), other.transform.position, Quaternion.identity);
+        boom.GetComponent<ParticleSystem>().Play(true);
+        Destroy(other.gameObject);
     }
 
     public void LoadNextLevel()
