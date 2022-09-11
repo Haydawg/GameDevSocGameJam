@@ -55,10 +55,11 @@ public class ScannerLevel : MonoBehaviour
         if(scanners.Count != 0)
         {
             if (!audio.isPlaying)
-                audio.PlayOneShot(audio.clip);
-            else
-                audio.Stop();
+                //audio.PlayOneShot(audio.clip);
+                audio.Play();
         }
+        else
+            audio.Stop();
     }
     void DropScannerBuoy()
     {

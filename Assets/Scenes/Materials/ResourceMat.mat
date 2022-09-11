@@ -67,7 +67,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.66
     - _GlossyReflections: 1
-    - _InflationFactor: 0.19420378
+    - _InflationFactor: 0.19046997
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1

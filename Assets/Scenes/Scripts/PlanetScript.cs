@@ -29,7 +29,7 @@ public class PlanetScript : MonoBehaviour
         gameObject.GetComponent<MeshFilter>().mesh = planetMeshs[0];
         minigame = (LevelSelection)Random.Range(1, 4);
 
-        Invoke("MakeConections", 2.0f);
+        Invoke("MakeConections", 0.5f);
     }
 
     public void MakeConections()
