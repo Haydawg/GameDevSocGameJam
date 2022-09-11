@@ -1407,7 +1407,7 @@ MonoBehaviour:
   target: {fileID: 1425769436}
   npcToSpawn: {fileID: 7817524746880966653, guid: 72286374c7ec53747a330d5005840113, type: 3}
   maxSpawn: 100
-  spanwRate: 2
+  spanwRate: 1
   minX: 200
   maxX: 300
 --- !u!4 &1397670658
