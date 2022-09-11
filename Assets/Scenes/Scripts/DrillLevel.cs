@@ -35,7 +35,7 @@ public class DrillLevel : MonoBehaviour
     [SerializeField] GameObject explosionPrefab;
     GameObject currentExplosion;
     [SerializeField] Material material;
-
+    [SerializeField] AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -95,6 +95,7 @@ public class DrillLevel : MonoBehaviour
 
                 timeSinceLastFired = 0;
                 lineRenderer.SetPosition(1, hit.point);
+                audioSource.PlayOneShot(audioSource.clip);
                 currentExplosion = Instantiate(explosionPrefab, hit.point, Quaternion.identity);
                 StartCoroutine(Explosion());
 
