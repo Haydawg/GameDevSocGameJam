@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.14538535, g: 0.094140075, b: 0.21716204, a: 1}
+  m_IndirectSpecularColor: {r: 0.14538348, g: 0.09414124, b: 0.21716052, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -313,9 +313,9 @@ MonoBehaviour:
   currentLevel: 0
   fuelAmount: 500
   shipHealth: 0
-  thrusterHealth: 0
-  weaponHealth: 0
-  scannerHealth: 0
+  thrusterHealth: 1
+  weaponHealth: 100
+  scannerHealth: 100
   newGame: 0
 --- !u!4 &744540599
 Transform:

@@ -16,12 +16,11 @@ public class Npc_Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(transform.position, target.transform.position) > 0.1)
-        {
-            moveDir = target.transform.position - transform.position;
-            moveDir = moveDir.normalized;
-            transform.position += moveDir * speed * Time.deltaTime;
-        }
+
+        moveDir = target.transform.position - transform.position;
+        moveDir = moveDir.normalized;
+        transform.position += moveDir * speed * Time.deltaTime;
+        
     }
 
     private void OnTriggerEnter(Collider other)
