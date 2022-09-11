@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.11381359, g: 0.13517499, b: 0.22362548, a: 1}
+  m_IndirectSpecularColor: {r: 0.113812976, g: 0.1351772, b: 0.22362712, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2411,12 +2411,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
   speed: 10
+  engineDamage: 1
   healthImage: {fileID: 2138582037}
   playerHealth: 3
-  gameTimer: 60
+  gameTimer: 30
   timerText: {fileID: 812789547}
   endText: {fileID: 944909078}
   endButton: {fileID: 44966064}
+  gameEnded: 0
 --- !u!4 &1925753829
 Transform:
   m_ObjectHideFlags: 0

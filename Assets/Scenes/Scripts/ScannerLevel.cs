@@ -74,7 +74,7 @@ public class ScannerLevel : MonoBehaviour
     }
     void EndLevel()
     {
-        GameManager.Instance.resourceGathered = resourceGathered;
+        GameManager.Instance.fuelAmount += resourceGathered;
         endText.text = "You retrieved " + resourceGathered.ToString() + " units of fuel";
         endButton.gameObject.SetActive(true);
         endText.enabled = true;

@@ -24,20 +24,15 @@ public class GameManager : MonoBehaviour
         }
     }
     public LevelSelection currentLevel;
-    public float resourceGathered;
+    public float fuelAmount = 50f;
     [Header("Ship Stats")]
     public float shipHealth;
 
-    public float thrusterHealth;
-    public float thrusterSpeed;
+    public float thrusterHealth = 1f;
 
     public float weaponHealth;
-    public float weaponDamage;
-    public float weaponFireRate;
 
     public float scannerHealth;
-    public int scannerAmount;
-    public float scannerRadius;
 
     public bool newGame;
 
@@ -64,6 +59,11 @@ public class GameManager : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
     
 }

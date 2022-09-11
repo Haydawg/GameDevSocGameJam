@@ -20,6 +20,7 @@ public class PlanetScript : MonoBehaviour
     public LevelSelection minigame;
     public bool finalPLanet = false;
     public GameObject finalTarget;
+    public Material lineMat;
 
     // Start is called before the first frame update
     void Start()
@@ -51,15 +52,15 @@ public class PlanetScript : MonoBehaviour
             float distanceCost = (planet.transform.position - gameObject.transform.position).magnitude;
             if(distanceCost < 900)
             {
-                conectionCosts.Add(1f);
+                conectionCosts.Add(30f);
             }
             else if(distanceCost < 1300)
             {
-                conectionCosts.Add(3f);
+                conectionCosts.Add(50f);
             }
             else
             {
-                conectionCosts.Add(7f);
+                conectionCosts.Add(70f);
             }
 
             GameObject newChild = new GameObject();
@@ -68,6 +69,7 @@ public class PlanetScript : MonoBehaviour
             planetLines.Add(newChild);
             newChild.GetComponent<LineRenderer>().startWidth = 10;
             newChild.GetComponent<LineRenderer>().endWidth = 10;
+            newChild.GetComponent<LineRenderer>().material = lineMat;
             newChild.GetComponent<LineRenderer>().startColor = Color.blue;
             newChild.GetComponent<LineRenderer>().endColor = Color.blue;
             newChild.GetComponent<LineRenderer>().positionCount = 2;
@@ -92,9 +94,15 @@ public class PlanetScript : MonoBehaviour
             gameObject.GetComponent<MeshFilter>().mesh = planetMeshs[1];
             if(planetDestroyed == false)
             {
+                gameObject.GetComponent<MeshCollider>().enabled = false;
                 gameObject.transform.localScale = gameObject.transform.localScale + new Vector3(4, 4, 4);
                 planetDestroyed = true;
             }
+        }
+
+        if(player.GetComponent<TestPlayer>().alive == false)
+        {
+            Travelable = false;
         }
     }
 
