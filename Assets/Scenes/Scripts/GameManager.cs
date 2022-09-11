@@ -55,6 +55,10 @@ public class GameManager : MonoBehaviour
     public void LoadScene(int sceneNumber)
     {
         SceneManager.LoadScene(sceneNumber);
+        if(sceneNumber == 0)
+        {
+            Destroy(gameObject);
+        }
     }
     public void LoadScene(string sceneName)
     {
