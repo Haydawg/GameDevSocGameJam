@@ -21,6 +21,7 @@ public class PlanetScript : MonoBehaviour
     public bool finalPLanet = false;
     public GameObject finalTarget;
     public Material lineMat;
+    public ParticleSystem planetExp;
 
     // Start is called before the first frame update
     void Start()
@@ -81,6 +82,7 @@ public class PlanetScript : MonoBehaviour
         {
             Vector3 targetPoint = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 400, gameObject.transform.position.z);
             Instantiate(finalTarget, targetPoint, Quaternion.Euler(90,0,0));
+            gameObject.GetComponent<MeshFilter>().mesh = planetMeshs[2];
         }
 
         planetGenFinished = true;
@@ -94,6 +96,7 @@ public class PlanetScript : MonoBehaviour
             gameObject.GetComponent<MeshFilter>().mesh = planetMeshs[1];
             if(planetDestroyed == false)
             {
+                planetExp.Play();
                 gameObject.GetComponent<MeshCollider>().enabled = false;
                 gameObject.transform.localScale = gameObject.transform.localScale + new Vector3(4, 4, 4);
                 planetDestroyed = true;

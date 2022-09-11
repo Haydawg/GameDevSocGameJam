@@ -16,6 +16,8 @@ public class TestPlayer : MonoBehaviour
     public Text launchGameText;
     public Text endText;
     public GameObject exitButton;
+    public GameObject damageButton;
+    public Text damageText;
 
     public AudioClip engineSound;
 
@@ -78,7 +80,34 @@ public class TestPlayer : MonoBehaviour
             gameObject.GetComponent<AudioSource>().Play();
 
             enemy.GetComponent<EnemyFleet>().MoveForward();
+
+            float randomDamage = 0;
+            int randomSystem = Random.Range(0, 5);
+            switch(randomSystem)
+            {
+                case 0: randomDamage = Random.Range(0.1f, 0.15f);
+                    GameManager.Instance.thrusterHealth = GameManager.Instance.thrusterHealth - randomDamage;
+                    damageText.text = "Your thrusters took " + randomDamage*10 + " damage \n thruster health: " + GameManager.Instance.thrusterHealth + "/100";
+                    break;
+                case 1: randomDamage = Random.Range(10, 15);
+                    GameManager.Instance.scannerHealth = GameManager.Instance.thrusterHealth - randomDamage;
+                    damageText.text = "Your scanners took " +randomDamage+ " damage \n scanner health: " + GameManager.Instance.scannerHealth + "/100";
+                    break;
+                case 2: randomDamage = Random.Range(10, 15);
+                    GameManager.Instance.weaponHealth = GameManager.Instance.weaponHealth - randomDamage;
+                    damageText.text = "Your weapons took " +randomDamage+ " damage \n weapon health: " + GameManager.Instance.weaponHealth + "/100";
+                    break;
+                case 3: damageText.text = "You took no damage this trip";
+                    break;
+
+            }
+            damageButton.SetActive(true);
         }
+    }
+
+    public void TurnOffDamageButton()
+    {
+        damageButton.SetActive(false);
     }
 
     public void LosdNextLevel()
